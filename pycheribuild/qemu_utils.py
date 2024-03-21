@@ -53,7 +53,7 @@ class QemuOptions:
             # virt, so CPTR_EL3 doesn't exist and CheriBSD can enable
             # CPTR_EL2.CEN freely and thus we can get away without CHERI-aware
             # firmware so long as loader(8) is plain AArch64.
-            self.machine_flags = ["-M", "virt,gic-version=3", "-cpu", "morello", "-bios", "edk2-aarch64-code.fd"]
+            self.machine_flags = ["-M", "virt,gic-version=3", "-cpu", "morello", "-smp", "4",  "-bios", "edk2-aarch64-code.fd", "-chardev", "stdio,id=char0,logfile=serial.log,signal=off", "-serial", "chardev:char0"]
         elif xtarget.is_mips(include_purecap=True):
             # Note: we always use the CHERI QEMU
             self.qemu_arch_sufffix = "mips64cheri128"
@@ -163,7 +163,7 @@ class QemuOptions:
         result.extend(self.machine_flags)
         result.extend(["-m", self.memory_size])
         if gui_options is None:
-            gui_options = ["-nographic"]
+            gui_options = []
         # For debugging generate a trap on unrepresentable instead of detagging:
         if self.xtarget.is_hybrid_or_purecap_cheri():
             if trap_on_unrepresentable:
