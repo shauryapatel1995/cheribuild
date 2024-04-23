@@ -648,7 +648,7 @@ class BuildDiskImageBase(SimpleProject):
             if self.is_minimal:
                 free_blocks = "45m" if self.is_besspin else "2m"
             else:
-                free_blocks = "50g"
+                free_blocks = "20g"
 
             extra_flags = []
             if self.is_x86:

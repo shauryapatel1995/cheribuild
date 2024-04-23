@@ -53,7 +53,7 @@ class QemuOptions:
             # virt, so CPTR_EL3 doesn't exist and CheriBSD can enable
             # CPTR_EL2.CEN freely and thus we can get away without CHERI-aware
             # firmware so long as loader(8) is plain AArch64.
-            self.machine_flags = ["-M", "virt,gic-version=3", "-cpu", "morello", "-smp", "4",  "-bios", "edk2-aarch64-code.fd", "-chardev", "stdio,id=char0,logfile=serial.log,signal=off", "-serial", "chardev:char0"]
+            self.machine_flags = ["-M", "virt,gic-version=3", "-cpu", "morello", "-smp", "4",  "-bios", "edk2-aarch64-code.fd", "-chardev", "stdio,id=char0,logfile=/data1/spatio-temporal-logs/mcf.log,signal=off", "-serial", "chardev:char0"]
         elif xtarget.is_mips(include_purecap=True):
             # Note: we always use the CHERI QEMU
             self.qemu_arch_sufffix = "mips64cheri128"
